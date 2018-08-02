@@ -1,0 +1,20 @@
+{
+    "title": "user",
+    "type": "object",
+    "description": "describes properties required to do login",
+    "properties": {
+        "username": {
+            "type": "string",
+            "title": "The username Schema"
+        },
+        "email": {
+            "type": "string",
+            "title": "The email Schema"
+        },
+        "password": {
+            "type": "string",
+            "title": "The password Schema"
+        }
+    },
+    "required": ["password"]
+}

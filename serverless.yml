@@ -1,0 +1,60 @@
+# Welcome to Serverless!
+#
+# This file is the main config file for your service.
+# It's very minimal at this point and uses default values.
+# You can always add more config options for more control.
+# We've included some commented out config examples here.
+# Just uncomment any of them to get that config option.
+#
+# For full config options, check the docs:
+#    docs.serverless.com
+#
+# Happy Coding!
+
+service: chapiLabs-rest-api
+
+plugins:
+  - serverless-domain-manager
+  - serverless-express
+
+custom:
+  customDomain:
+    domainName: chapitime.chapilabs.com
+    basePath: ''
+    stage: ${self:provider.stage}
+    createRoute53Record: true
+
+package:
+  exclude:
+    - node_modules
+  include:
+    - dist
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+
+webpackIncludeModules:
+  forceInclude:
+    - mysql
+    - mysql2
+    - sequelize
+
+functions:
+  get:
+    handler: dist/get.get
+    events:
+      - http:
+          path: v1/client/{id}
+          method: get
+          request:
+            parameters:
+              paths:
+                id: true
+  create:
+    handler: dist/auth.auth
+    events:
+      - http:
+          path: v1/auth
+          method: post
+        
